@@ -26,23 +26,41 @@ int main() {
             case 2:
                 printf("Código: ");
                 scanf("%d", &novo_livro.codigo);
+                getchar(); 
+
                 printf("Título: ");
-                scanf(" %[^\n]", novo_livro.titulo);
+                fgets(novo_livro.titulo, sizeof(novo_livro.titulo), stdin);
+                novo_livro.titulo[strcspn(novo_livro.titulo, "\n")] = '\0';
+
                 printf("Autor: ");
-                scanf(" %[^\n]", novo_livro.autor);
+                fgets(novo_livro.autor, sizeof(novo_livro.autor), stdin);
+                novo_livro.autor[strcspn(novo_livro.autor, "\n")] = '\0';
+
                 printf("Gênero: ");
-                scanf(" %[^\n]", novo_livro.genero);
+                fgets(novo_livro.genero, sizeof(novo_livro.genero), stdin);
+                novo_livro.genero[strcspn(novo_livro.genero, "\n")] = '\0';
+
                 printf("Ano: ");
                 scanf("%d", &novo_livro.ano);
+                getchar();
+
                 printf("Editora: ");
-                scanf(" %[^\n]", novo_livro.editora);
+                fgets(novo_livro.editora, sizeof(novo_livro.editora), stdin);
+                novo_livro.editora[strcspn(novo_livro.editora, "\n")] = '\0';
+
                 printf("Número de Páginas: ");
                 scanf("%d", &novo_livro.num_paginas);
-                inserir_livro(&biblioteca, novo_livro);
+
+                if (buscar_por_codigo(biblioteca, novo_livro.codigo) != NULL) {
+                    printf("Livro com código %d já existe.\n", novo_livro.codigo);
+                } else {
+                    inserir_livro(&biblioteca, novo_livro);
+                }
                 break;
             case 3:
                 printf("Informe o gênero: ");
-                scanf(" %[^\n]", genero);
+                fgets(genero, sizeof(genero), stdin);
+                genero[strcspn(genero, "\n")] = '\0';
                 buscar_por_genero(biblioteca, genero);
                 break;
             case 4:
@@ -55,6 +73,7 @@ int main() {
             default:
                 printf("Opção inválida!\n");
         }
+
     } while (opcao != 5);
 
     return 0;

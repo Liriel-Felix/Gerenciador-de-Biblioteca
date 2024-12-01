@@ -23,6 +23,13 @@ void inserir_livro(No** raiz, Livro livro) {
     }
 }
 
+No* buscar_por_codigo(No* raiz, int codigo) {
+    if (raiz == NULL) return NULL;
+    if (codigo < raiz->livro.codigo) return buscar_por_codigo(raiz->esquerda, codigo);
+    if (codigo > raiz->livro.codigo) return buscar_por_codigo(raiz->direita, codigo);
+    return raiz;
+}
+
 void buscar_por_genero(No* raiz, char genero[]) {
     if (raiz != NULL) {
         buscar_por_genero(raiz->esquerda, genero);
